@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://linhtn11:hndsl131108442@ds115971.mlab.com:15971/demo-hapi');
+mongoose.connect('connect your database here');
 const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error'));
