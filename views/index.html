@@ -1,0 +1,73 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>Hapi</title>
+</head>
+<body>
+    <h3>List</h3>
+    <form method="post" action="/" enctype="multipart/form-data">
+        <input type="text" name="name" placeholder="Enter name ..." required style="display: inline;"/>
+        <input type="number" name="age" min="10" max="90" placeholder="Enter age ..." required style="display: inline;"/>
+        <input type="file" id="file" name="file" accept="image/*" multiple required style="display: inline;">
+        <button type="submit">Submit</button style="display: inline;">
+    </form>
+    <form method="post" action="/search">
+        <input type="text" name="name" placeholder="Enter name to search ..." />
+        <button type="submit">Search</button>
+    </form>
+    <div>
+        <div>
+            <ul>
+                <% if (users.length === 0) { %>
+                    <p>No data ...</p>
+                <% } else { %>
+                    <form id="myform1" method="POST" action="/remove %>">
+                        <a href="javascript:void()" onclick="document.getElementById('myform1').submit();">Remove all</a>
+                    </form>
+                    <% users.forEach(function(user) { %>
+                        <li>
+                            Name: <a href="/user/<%= user._id %>"><%= user.name %></a> - Age: <%= user.age %>
+                            <a href="/update/<%= user._id %>" style="display: inline;">Edit</a>
+                            <form id="myform" method="POST" action="/remove/<%= user._id %>" style="display: inline;">
+                                <a href="javascript:void()" onclick="document.getElementById('myform').submit();">Remove</a>
+                            </form>
+                        </li>
+                    <% }); %>
+                <% } %>
+            </ul>
+        </div>
+        <% if (pages > 0) { %>
+            <ul class="pagination text-center">
+                <% if (current == 1) { %>
+                    <li class="disabled"><a>First</a></li>
+                <% } else { %>
+                    <li><a href="/1">First</a></li>
+                <% } %>
+                <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                <% if (i !== 1) { %>
+                    <li class="disabled"><a>...</a></li>
+                <% } %>
+                <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                    <% if (i == current) { %>
+                        <li class="active"><a><%= i %></a></li>
+                    <% } else { %>
+                        <li><a href="/<%= i %>"><%= i %></a></li>
+                    <% } %>
+                    <% if (i == Number(current) + 4 && i < pages) { %>
+                        <li class="disabled"><a>...</a></li>
+                    <% } %>
+                <% } %>
+                <% if (current == pages) { %>
+                    <li class="disabled"><a>Last</a></li>
+                <% } else { %>
+                    <li><a href="/<%= pages %>">Last</a></li>
+                <% } %>
+            </ul>
+        <% } %>
+    </div>
+</body>
+</html>

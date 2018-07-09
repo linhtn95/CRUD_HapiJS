@@ -1,0 +1,31 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>Hapi</title>
+</head>
+
+<body>
+    <h3>List</h3>
+    <form method="post" action="/search">
+        <input type="text" name="name" placeholder="Enter name to search ..." value="<%=query %>" />
+        <button type="submit">Search</button>
+    </form>
+    <div>
+        <ul>
+            <% if (users.length === 0) { %>
+                <p>Not found ...</p>
+            <% } else { %>
+                <% users.forEach(function(user) { %>
+             <li>Name:<a href="/user/<%= user._id %>"><%= user.name %></a> - Age:<%= user.age %></li>
+            <% }); %>
+            <%  } %>
+        </ul>
+    </div>
+</body>
+
+</html>
